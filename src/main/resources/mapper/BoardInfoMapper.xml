@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mentor.mentee.mapper.BoardInfoMapper">
+
+	<select id="selectBoard" resultType="com.mentor.mentee.domain.BoardInfo">
+		SELECT 
+			BOARD_NUM,
+			BOARD_PARENT_NUM,
+			BOARD_TITLE,
+			BOARD_FILE_PATH,
+			BOARD_CONTENT ,
+			CREDATE,
+			CREUSR,
+			(SELECT USER_NAME FROM USERS UI WHERE UI.USER_IDX=BI1.CREUSR) CRENAME,
+			MODATE,
+			MODUSR
+		FROM BOARD_INFO BI1
+		WHERE BOARD_NUM = #{boardNum}
+	</select>
+	<select id="selectBoards" resultType="com.mentor.mentee.domain.BoardInfo">
+		WITH RECURSIVE BI AS(
+		SELECT 
+			BOARD_NUM,
+			BOARD_PARENT_NUM,
+			BOARD_TITLE,
+			BOARD_FILE_PATH,
+			BOARD_CONTENT ,
+			CREDATE,
+			CREUSR,
+			(SELECT USER_NAME FROM USERS UI WHERE UI.USER_IDX=BI1.CREUSR) CRENAME,
+			MODATE,
+			MODUSR,
+			1 LEVEL, 
+			CAST(LPAD(BI1.BOARD_NUM,12,'0') AS CHAR(100)) as SORT
+		FROM BOARD_INFO BI1
+		WHERE BOARD_PARENT_NUM = 0
+		UNION ALL
+		SELECT 
+			BI2.BOARD_NUM,
+			BI2.BOARD_PARENT_NUM,
+			BI2.BOARD_TITLE,
+			BI2.BOARD_FILE_PATH,
+			BI2.BOARD_CONTENT ,
+			BI2.CREDATE,
+			BI2.CREUSR,
+			(SELECT USER_NAME FROM USERS UI WHERE UI.USER_IDX=BI2.CREUSR) CRENAME,
+			BI2.MODATE,
+			BI2.MODUSR,
+			1+ LEVEL LEVEL, 
+			CAST(CONCAT(BI.SORT, '-',LPAD(BI2.BOARD_NUM,12,'0') ) AS CHAR(100)) as SORT
+		FROM BOARD_INFO BI2
+		INNER JOIN BI ON BI.BOARD_NUM = BI2.BOARD_PARENT_NUM)
+		SELECT * FROM BI
+		<where>
+			<if test='searchStr != null and searchStr != ""'>
+				<if test='searchType =="boardTitle"'>
+					AND BOARD_TITLE LIKE CONCAT('%',#{searchStr},'%')
+				</if>
+				<if test='searchType =="crename"'>
+					AND (SELECT USER_NAME FROM USERS UI WHERE UI.USER_IDX = BI.CREUSR) LIKE CONCAT('%',#{searchStr},'%')
+				</if>
+			</if>
+		</where>
+		<trim prefix="ORDER BY">
+			<if test='order == null or order == ""'>
+		 		SORT
+			</if>
+		</trim>
+	</select>
+
+	<insert id="insertBoard" parameterType="com.mentor.mentee.domain.BoardInfo">
+		INSERT BOARD_INFO( BOARD_PARENT_NUM, BOARD_TITLE, BOARD_FILE_PATH, BOARD_CONTENT,CREUSR, MODUSR)
+		VALUES(#{boardParentNum},#{boardTitle},#{boardFilePath},#{boardContent},#{creusr},#{modusr})
+	</insert>
+
+	<update id="updateBoard" parameterType="com.mentor.mentee.domain.BoardInfo">
+		UPDATE BOARD_INFO
+		<set>
+			<if test="boardTitle != null and boardTitle != ">
+				BOARD_TITLE = #{boardTitle},
+			</if>
+			<if test="boardContent != null and boardContent != ">
+				BOARD_CONTENT = #{boardContent},
+			</if>
+		</set>
+		WHERE board_num = #{boardNum}
+	</update>
+
+	<delete id="deleteBoard">
+		DELETE FROM BOARD_INFO WHERE BOARD_NUM = #{boardNum}
+	</delete>
+</mapper>

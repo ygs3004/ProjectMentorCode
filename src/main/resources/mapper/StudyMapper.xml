@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mentor.mentee.mapper.StudyMapper">
+
+    <insert id="createStudy">
+        INSERT INTO STUDY
+               (STUDY_USER_ID, STUDY_TITLE, STUDY_PERIOD, STUDY_WEEKLY,
+                STUDY_START_TIME, STUDY_END_TIME, STUDY_CAPACITY,
+                STUDY_CAREER, STUDY_SCHOOL, STUDY_CONTENT)
+        VALUES (#{studyUserId}, #{studyTitle}, #{studyPeriod}, #{studyWeekly},
+                #{studyStartTime}, #{studyEndTime}, #{studyCapacity},
+                #{studyCareer, jdbcType=VARCHAR}, #{studySchool}, #{studyContent})
+    </insert>
+
+    <update id="updateStudy">
+        UPDATE STUDY
+        SET STUDY_TITLE = #{studyTitle},
+            STUDY_PERIOD = #{studyPeriod}, STUDY_WEEKLY = #{studyWeekly},
+            STUDY_START_TIME = #{studyStartTime}, STUDY_END_TIME = #{studyEndTime},
+            STUDY_CAPACITY = #{studyCapacity}, STUDY_CAREER = #{studyCareer, jdbcType=VARCHAR},
+            STUDY_SCHOOL = #{studySchool}, STUDY_CONTENT = #{studyContent}
+        WHERE STUDY_USER_ID = #{studyUserId}
+    </update>
+
+    <update id="updateCapacity">
+        UPDATE STUDY
+        SET STUDY_NOW_CAPACITY =
+
+    </update>
+
+    <delete id="delStudyInfo">
+        DELETE FROM STUDY WHERE STUDY_USER_ID = #{studyUserId}
+    </delete>
+
+    <select id="getStudyByNum"  resultType="com.mentor.mentee.domain.Study">
+        SELECT
+             STUDY_NUM, STUDY_USER_ID, STUDY_TITLE,
+             STUDY_PERIOD, STUDY_WEEKLY, STUDY_START_TIME, STUDY_END_TIME,
+             STUDY_CAPACITY, STUDY_NOW_CAPACITY, STUDY_CAREER, STUDY_SCHOOL, STUDY_CONTENT
+        FROM STUDY WHERE STUDY_NUM = #{studyNum}
+    </select>
+
+    <select id="getStudyById"  resultType="com.mentor.mentee.domain.Study">
+        SELECT
+             STUDY_NUM, STUDY_USER_ID, STUDY_TITLE,
+             STUDY_PERIOD, STUDY_WEEKLY, STUDY_START_TIME, STUDY_END_TIME,
+             STUDY_CAPACITY, STUDY_NOW_CAPACITY, STUDY_CAREER, STUDY_SCHOOL, STUDY_CONTENT
+        FROM STUDY WHERE STUDY_USER_ID = #{userId}
+    </select>
+
+    <select id="getStudyList"  resultType="com.mentor.mentee.domain.Study">
+        SELECT
+            STUDY_NUM, STUDY_USER_ID, STUDY_TITLE,
+            STUDY_PERIOD, STUDY_WEEKLY, STUDY_START_TIME, STUDY_END_TIME,
+            STUDY_CAPACITY, STUDY_NOW_CAPACITY, STUDY_CAREER, STUDY_SCHOOL, STUDY_CONTENT
+        FROM STUDY
+    </select>
+
+    <select id="getMentorIdByNum">
+        SELECT STUDY_USER_ID
+        FROM STUDY
+        WHERE STUDY_NUM = #{studyNum}
+    </select>
+
+
+
+</mapper>

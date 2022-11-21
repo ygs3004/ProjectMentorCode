@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mentor.mentee.mapper.ApplyMapper">
+
+    <insert id="insertApply">
+        INSERT INTO APPLY
+               (APPLY_MENTORID, APPLY_MENTEEID, APPLY_MSG)
+        VALUES (#{applyMentorId}, #{applyMenteeId}, #{applyMsg})
+    </insert>
+
+    <select id="getApplyList" resultType="com.mentor.mentee.domain.Apply">
+        SELECT B.STUDY_TITLE, A.APPLY_NUM, A.APPLY_MENTORID, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_NUM = 0 ORDER BY A.APPLY_MENTEEID
+    </select>
+
+    <update id="approveMentee">
+        UPDATE APPLY SET APPLY_AOR = 1 WHERE APPLY_NUM =  ${applyNum}
+    </update>
+
+    <update id="refuseMentee">
+        UPDATE APPLY SET APPLY_AOR = 2 WHERE APPLY_NUM =  ${applyNum}
+    </update>
+
+</mapper>

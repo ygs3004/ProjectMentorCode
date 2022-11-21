@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mentor.mentee.mapper.HomeWorkMapper">
+
+    <insert id="uploadHomeWorkInfo">
+        INSERT INTO HOMEWORK_INFO (HW_INFO_NAME, HW_INFO_CONTENT, HW_INFO_MENTOR, HW_INFO_REG_DATE, HW_INFO_DEADLINE, HW_INFO_COMPLETE)
+        VALUES(#{hwInfoName}, #{hwInfoContent}, #{hwInfoMentor}, NOW(), #{hwInfoDeadline}, 0)
+    </insert>
+
+    <select id="getHomeWorkInfo"  resultType="com.mentor.mentee.domain.HomeWorkInfo">
+        SELECT * FROM HOMEWORK_INFO WHERE HW_INFO_MENTOR=#{mentorId}
+    </select>
+
+    <insert id="homeWorkSubmit" parameterType="com.mentor.mentee.domain.HomeWork">
+        INSERT INTO HOMEWORK (HW_STUDY_NUM, HW_USER_ID, HW_CONTENT, HW_REG_DATE, HW_UUID, HW_FILENAME, HW_UPLOAD_PATH)
+        VALUES (#{hwStudyNum}, #{hwUserId}, #{hwContent}, NOW(), #{hwUuid, jdbcType=VARCHAR}, #{hwFilename, jdbcType=VARCHAR}, #{hwUploadPath, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="checkHomeWork" resultType="int">
+        SELECT COUNT(*) FROM HOMEWORK_INFO WHERE HW_INFO_MENTOR = #{mentorId}
+    </select>
+
+    <select id="getHomeWorkList" resultType="com.mentor.mentee.domain.HomeWork">
+        SELECT * FROM HOMEWORK
+    </select>
+
+    <update id="modifyHwInfo" parameterType="com.mentor.mentee.domain.HomeWorkInfo">
+        UPDATE HOMEWORK_INFO SET HW_INFO_NAME = #{hwInfoName}, HW_INFO_DEADLINE=#{hwInfoDeadline},
+        HW_INFO_CONTENT =#{hwInfoContent}, HW_INFO_REG_DATE=#{hwInfoRegDate} WHERE HW_INFO_MENTOR = #{hwInfoMentor}
+    </update>
+
+    <delete id="deleteHwInfo">
+        DELETE FROM HOMEWORK_INFO WHERE HW_INFO_MENTOR = #{hwInfoMentor}
+    </delete>
+
+    <select id="getHomeWork" resultType="com.mentor.mentee.domain.HomeWork">
+        SELECT * FROM HOMEWORK WHERE HW_STUDY_NUM = #{hwStudyNum}
+    </select>
+
+    <delete id="deleteHomeWorkAll"> -- 스터디룸에 등록된 전체 과제 삭제
+        DELETE FROM HOMEWORK WHERE HW_STUDY_NUM = #{hwStudyNum}
+    </delete>
+
+    <delete id="deleteLoginUserHomeWork">
+        DELETE FROM HOMEWORK WHERE HW_USER_ID = #{loginUserId}
+    </delete>
+
+    <update id="modifyHw">
+        UPDATE HOMEWORK SET HW_CONTENT=#{hwContent}, HW_REG_DATE = NOW(),
+                            HW_UUID = #{hwUuid}, HW_FILENAME = #{hwFilename},
+                            HW_UPLOAD_PATH = #{hwUploadPath}
+                        WHERE HW_USER_ID = #{hwUserId}
+    </update>
+    
+    <select id="getOldFiles" resultType="com.mentor.mentee.domain.HomeWork">
+        -- 오늘 저장 파일
+        -- SELECT * FROM HOMEWORK WHERE HW_UPLOAD_PATH LIKE CONCAT('%',  DATE_FORMAT(NOW(), '%Y\\%m\\%d'), '%') ESCAPE '|';
+        -- 어제 저장파일
+         SELECT * FROM HOMEWORK WHERE HW_UPLOAD_PATH LIKE CONCAT('%',  DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y\\%m\\%d'), '%') ESCAPE '|'
+    </select>
+</mapper>

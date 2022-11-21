@@ -1,0 +1,3 @@
+	CREATE DATABASE ezen;
+	CREATE USER 'ezen'@'%' IDENTIFIED BY 'r1r2r3';
+	GRANT ALL PRIVILEGES ON ezen.* TO 'ezen'@'%';

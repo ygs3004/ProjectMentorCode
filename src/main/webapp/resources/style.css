@@ -1,0 +1,177 @@
+/* @CHARSET "UTF-8"; */
+
+* {
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #fdfcf0;
+}
+
+tr, td {
+	border-spacing: 0;
+}
+
+/*header  */
+h1 {
+	max-width: 1000px;
+	font-size: 50px;
+	margin: 80px auto;
+	width: 100%;
+	text-align: center;
+}
+
+#container {
+	max-width: 1000px;
+	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+/* 저장 */
+#insert {
+	position: absolute;
+	right: 30px;
+	top: 580px;
+}
+
+/*section*/
+.AA {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0px;
+	flex: 1 1 250px;
+	border-bottom: 1px solid gray;
+	margin-top: 10px;
+	padding-bottom: 10px;;
+}
+
+/*right_box*/
+#review {
+	position: absolute;
+	top: 180px;
+	right: 30px;
+	display: flex;
+	flex-direction: column;
+	background-color: #FF6D70;
+	width: 300px;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	display: none;
+}
+
+.una {
+	margin-left: 8px;
+	width: 80px;
+}
+
+.uco {
+	color: green;
+}
+
+#review span {
+	margin-top: 2px;
+}
+
+.inreview {
+	text-align: left;
+	width: 280px;
+	margin: 10px 10px 0 10px;
+	height: 300px;
+	background-color: antiquewhite;
+	color: black;
+}
+
+.inreview2 {
+	text-align: left;
+	margin-left: 10px;
+}
+
+#username {
+	width: 70px;
+	margin-bottom: 10px;
+}
+
+#userpw {
+	width: 70px;
+}
+
+#content {
+	width: 70px;
+}
+
+/*left_box*/
+.right_box {
+	position: absolute;
+	top: 180px;
+	left: 30px;
+	background-color: #3d506a;
+	width: 350px;
+	text-align: center;
+	color: white;
+}
+
+.right_box tr:nth-child(1) td {
+	font-size: 14px;
+}
+
+.right_box tr:nth-child(2) td {
+	font-size: 15px;
+}
+
+#btnprev {
+	margin: 3px;
+}
+
+.rank {
+	width: 185px;
+	height: 30px;
+	background: red;
+	border: 8px inset black;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	padding-top: 8px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.image {
+	width: 185px;
+	height: 260px;
+	border: 8px inset black;
+}
+
+.p {
+	width: 195px;
+	margin-top: 5px;
+	text-align: left;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+/*예매하기 */
+.right_btn {
+	position: absolute;
+	top: 610px;
+	right: 30px;
+	border: 1px solid black;
+	background: white;
+}
+
+.title2 {
+	min-width: 100px;
+}

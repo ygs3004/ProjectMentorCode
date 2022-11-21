@@ -1,0 +1,21 @@
+#formTitle{font-size: 40px; font-weight: bold;}
+#studyTitle{font-size: 25px; font-weight: bold;}
+#studyContent{font-size: 14px;}
+#studyPeriod{font-size: 14px;}
+#studyWeekly{font-size: 14px;}
+#studyCapacity{font-size: 14px;}
+#pagenav{display: flex; margin: 2% auto 2% auto; text-align:center; Justify-content: center;}
+.formHeader{width: 70%; margin: 4% auto 4% auto; display: block; text-align: center;}
+#formBody{width: 900px; margin: 5% auto 5% auto; display: block; padding-right: 3%; text-align:center; font-size: 14px;}
+.cardlist{display:inline-block; width:15.5rem; margin:1vw; text-align: left;}
+thead th{margin: 0; dispaly: block; Justify-content: center;}
+
+@media screen and (max-width: 900px) {
+    .formBody{width: 700px;}
+    .cardlist{width: 17rem; margin:3vw;}
+}
+
+@media screen and (max-width: 600px) {
+    .formBody{width: 400px;}
+    .cardlist{width: 25rem;}
+}

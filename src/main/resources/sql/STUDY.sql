@@ -1,0 +1,36 @@
+-- study 테이블 삭제(초기화)
+DROP TABLE STUDY;
+
+-- 테이블 생성
+CREATE TABLE STUDY
+(
+    STUDY_NUM            	INT         	 NOT NULL AUTO_INCREMENT,
+    STUDY_USER_ID        	VARCHAR(20)              ,
+    STUDY_TITLE          	VARCHAR(200) 	 NOT NULL,
+    STUDY_PERIOD    		VARCHAR(150)	 NOT NULL,
+    STUDY_WEEKLY     		VARCHAR(20)              ,
+    STUDY_START_TIME  		VARCHAR(10)  	 NOT NULL,
+    STUDY_END_TIME 	    	VARCHAR(10)  	 NOT NULL,
+    STUDY_CAPACITY       	INT       	     NOT NULL,
+    STUDY_NOW_CAPACITY    	INT       	 	 DEFAULT 0,
+    STUDY_CAREER         	VARCHAR(1000)            ,
+    STUDY_SCHOOL         	VARCHAR(30)  	 NOT NULL,
+    STUDY_CONTENT        	VARCHAR(1000),
+    PRIMARY KEY(STUDY_NUM)
+);
+
+-- 테이블 체크
+SELECT * FROM STUDY;
+
+-- 테스트용 더미
+INSERT INTO STUDY (
+	STUDY_USER_ID, STUDY_TITLE, STUDY_PERIOD, STUDY_WEEKLY, STUDY_START_TIME, STUDY_END_TIME,
+	STUDY_CAPACITY, STUDY_NOW_CAPACITY, STUDY_CAREER, STUDY_SCHOOL, STUDY_CONTENT)
+VALUES (
+	'mentor','멘토의 스터디','2022/06/15 - 2022/11/18', '1,2,3,4,5', '09:20', '17:50',
+	30, 0, '경력1,경력2', '멘토대학교', '열공을 하는 모임입니다.');
+
+UPDATE STUDY
+    SET STUDY_USER_ID = 'mentortest' WHERE STUDY_USER_ID = 'mentor';
+
+COMMIT;
