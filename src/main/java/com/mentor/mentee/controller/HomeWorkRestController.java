@@ -97,7 +97,7 @@ public class HomeWorkRestController {
         homeWork.setHwContent((String) param.get("hwContent"));
         homeWork.setHwUserId(loginUserId);
 
-        log.info("homework 되면 안되겠니?"+ homeWork);
+        log.info("homework 정보 : "+ homeWork);
 
         int updateContent = homeWorkService.modifyHw(uploadFiles, homeWork);
 
