@@ -3,6 +3,7 @@ package com.mentor.mentee.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mentor.mentee.service.HomeWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.ui.Model;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class CheckLoginInterceptor implements HandlerInterceptor {
 
 	private User loginUserBean;
+	private HomeWorkService homeWorkService;
 
-	public CheckLoginInterceptor(User loginUserBean) {
+	public CheckLoginInterceptor(User loginUserBean, HomeWorkService homeWorkService) {
 		// TODO Auto-generated constructor stub
 		this.loginUserBean = loginUserBean;
+		this.homeWorkService = homeWorkService;
 	}
 
 	@Override
@@ -25,6 +28,8 @@ public class CheckLoginInterceptor implements HandlerInterceptor {
 			@Nullable ModelAndView modelAndView) throws Exception {
 		if (loginUserBean.isUserLogin()) {
 			request.getSession().setAttribute("loginUser", loginUserBean);
+			boolean checkHomeWork = homeWorkService.checkHomeWork(loginUserBean.getUserId());
+			request.getSession().setAttribute("checkHomeWork", checkHomeWork);
 		}
 
 	}

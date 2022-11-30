@@ -6,7 +6,7 @@
 #studyCapacity{font-size: 14px;}
 #pagenav{display: flex; margin: 2% auto 2% auto; text-align:center; Justify-content: center;}
 .formHeader{width: 70%; margin: 4% auto 4% auto; display: block; text-align: center;}
-#formBody{width: 900px; margin: 5% auto 5% auto; display: block; padding-right: 3%; text-align:center; font-size: 14px;}
+#formBody{width: 1500px; margin: 0 auto 5% auto; display: block; padding-right: 3%; text-align:center; font-size: 14px;}
 .cardlist{display:inline-block; width:15.5rem; margin:1vw; text-align: left;}
 thead th{margin: 0; dispaly: block; Justify-content: center;}
 
@@ -15,7 +15,7 @@ thead th{margin: 0; dispaly: block; Justify-content: center;}
     .cardlist{width: 17rem; margin:3vw;}
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 576px) {
     .formBody{width: 400px;}
     .cardlist{width: 25rem;}
 }

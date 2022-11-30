@@ -137,9 +137,9 @@ public class UserController {
 
 	// 회원 정보 리스트
 	@GetMapping("/user_list")
-	public String user_list(@ModelAttribute("userListBean") User userListBean) {
+	public String user_list(@ModelAttribute("userListBean") User userListBean, Model model) {
 
-		userService.getModifyUserInfo(userListBean);
+		userService.getUserList(userListBean);
 		return "user/user_list";
 	}
 

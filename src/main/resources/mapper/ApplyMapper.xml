@@ -14,6 +14,10 @@
         SELECT B.STUDY_TITLE, A.APPLY_NUM, A.APPLY_MENTORID, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_NUM = 0 ORDER BY A.APPLY_MENTEEID
     </select>
 
+    <select id="checkApplyMsg" resultType="com.mentor.mentee.domain.Apply">
+        SELECT APPLY_NUM  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE B.STUDY_NUM = #{studyNum} AND A.APPLY_MENTEEID = #{userId}
+    </select>
+
     <update id="approveMentee">
         UPDATE APPLY SET APPLY_AOR = 1 WHERE APPLY_NUM =  ${applyNum}
     </update>

@@ -1,10 +1,12 @@
 package com.mentor.mentee.dao;
 
-import com.mentor.mentee.mapper.StudyMapper;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mentor.mentee.domain.User;
+import com.mentor.mentee.mapper.StudyMapper;
 import com.mentor.mentee.mapper.UserMapper;
 
 @Repository
@@ -55,6 +57,10 @@ public class UserDao {
         return userMapper.getUserInfo(userId);
     }
 
+    public List <User> list(User userListBean) {
+		return userMapper.getUserList(userListBean);
+	}
+    
     public String getMentorId(String userId){
         User user = getUserInfo(userId);
         String mentorId = "";

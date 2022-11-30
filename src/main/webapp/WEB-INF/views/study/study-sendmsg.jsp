@@ -4,6 +4,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/study/apply-styles.css">
 <script>
     $(document).ready(function (){
+        var message = '${message}';
+        var url = '${url}';
+        if(message.trim().length!=0){
+        }
         getstudy();
     });
 
@@ -13,8 +17,15 @@
             url : '/study/get/${param.studynum}',
             accept : "application/json",
             success : function(res) {
-                $('#studyTitle').val(res.studyTitle);
-                $('#mentorInfo').val(res.studyUserId);
+                if(res){
+                    $('#studyTitle').val(res.studyTitle);
+                    $('#mentorInfo').val(res.studyUserId);
+                    alert("이미 전송된 요청메세지가 존재합니다.");
+                    history.back();
+                }else{
+                    $('#studyTitle').val(res.studyTitle);
+                    $('#mentorInfo').val(res.studyUserId);
+                }
             },
             error: function(errorThrown) {
                 alert(errorThrown.statusText);

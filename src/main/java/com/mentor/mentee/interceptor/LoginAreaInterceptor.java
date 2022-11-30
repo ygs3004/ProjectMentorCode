@@ -24,7 +24,6 @@ public class LoginAreaInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info("로그인이 필요한 url 입장시 체크" + loginUserBean);
-
 		if (!loginUserBean.isUserLogin()) {
 			if(isTest) {
 				loginUserBean.setUserId("mentor");
@@ -34,6 +33,7 @@ public class LoginAreaInterceptor implements HandlerInterceptor {
 				return true;
 			}
 			String contextPath = request.getContextPath();
+			if(String.valueOf(request.getRequestURI()).equals("/study/getstudylist")) return true;
 			response.sendRedirect(contextPath + "/user/login");
 			return false;
 		}

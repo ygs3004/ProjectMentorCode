@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.mentor.mentee.domain.Study;
 import com.mentor.mentee.mapper.StudyMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,10 @@ public class HomeWorkService {
     }
 
     public List<HomeWork> getHomeWorkList(String user_id) {
-        return homeWorkMapper.getHomeWorkList(user_id);
+
+        Study study = studyMapper.getStudyById(user_id);
+
+        return homeWorkMapper.getHomeWorkList(study.getStudyNum());
     }
 
     public HomeWorkInfo getHomeWorkInfo(String userId) {

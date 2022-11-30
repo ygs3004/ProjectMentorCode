@@ -2,8 +2,10 @@ package com.mentor.mentee.config;
 import com.mentor.mentee.common.LoggerInterceptor;
 import com.mentor.mentee.dao.UserDao;
 import com.mentor.mentee.domain.User;
+import com.mentor.mentee.interceptor.AlwayslCheckInterceptor;
 import com.mentor.mentee.interceptor.CheckLoginInterceptor;
 import com.mentor.mentee.interceptor.LoginAreaInterceptor;
+import com.mentor.mentee.service.HomeWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,6 +27,9 @@ public class ServletAppContext implements WebMvcConfigurer {
 
     @Resource(name = "loginUserBean")
     private User loginUserBean;
+
+    @Autowired
+    private HomeWorkService homeWorkService;
 
     @Autowired
     private UserDao userDao;
@@ -70,20 +75,20 @@ public class ServletAppContext implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // TODO Auto-generated method stub
         WebMvcConfigurer.super.addInterceptors(registry);
-        CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean);
+        CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean, homeWorkService);
         LoggerInterceptor loggerInterceptor = new LoggerInterceptor();
         LoginAreaInterceptor loginAreaInterceptor = new LoginAreaInterceptor(loginUserBean);
+        AlwayslCheckInterceptor alwayslCheckInterceptor = new AlwayslCheckInterceptor(loginUserBean, homeWorkService);
 
         InterceptorRegistration reg1 = registry.addInterceptor(checkLoginInterceptor);
         InterceptorRegistration reg2 = registry.addInterceptor(loggerInterceptor);
         InterceptorRegistration reg3 = registry.addInterceptor(loginAreaInterceptor);
+        InterceptorRegistration reg4 = registry.addInterceptor(alwayslCheckInterceptor);
 
         reg1.addPathPatterns("/user/login_pro");
         reg2.addPathPatterns("/**");
-        reg3.addPathPatterns("/homework/**", "/study/**","/user/modify","/user/delete","/views/**");
-//
-//        InterceptorRegistration reg2 = registry.addInterceptor(updateUserStatus);
-//        reg2.addPathPatterns("/MyStudy/**", "/MentorRoom/**");
+        reg3.addPathPatterns("/homework/**", "/study/**","/user/modify","/user/delete", "/board/**");
+        reg4.addPathPatterns("/**");
 
     }
 

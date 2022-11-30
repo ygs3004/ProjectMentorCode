@@ -32,6 +32,15 @@ public class ApplyService {
        return applyMapper.getApplyList(userId);
     }
 
+    //보낸메세지 중복 체크 여부
+    public boolean checkApplyMsg(int studyNum){
+        if(applyMapper.checkApplyMsg(studyNum, loginUserBean.getUserId())==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public int approveMentee(Apply apply) {
         return applyMapper.approveMentee(apply.getApplyNum());
     }

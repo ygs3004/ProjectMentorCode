@@ -23,7 +23,7 @@
     </select>
 
     <select id="getHomeWorkList" resultType="com.mentor.mentee.domain.HomeWork">
-        SELECT * FROM HOMEWORK
+        SELECT * FROM HOMEWORK WHERE HW_STUDY_NUM = #{hwStudyNum}
     </select>
 
     <update id="modifyHwInfo" parameterType="com.mentor.mentee.domain.HomeWorkInfo">

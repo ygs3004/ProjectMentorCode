@@ -20,16 +20,15 @@ $(function() {
 });
 
 
-
 function addCreerList() {
     const addstr = document.getElementById('addCareer');
     const li = document.createElement('li');
     const input = document.createElement('input');
     const del = document.createElement('a');
 
-    //<input type="hidden" name="studyCareer" value=add.value>
-    input.setAttribute('type',"hidden");
-    input.setAttribute('name','studyCareer');
+    //<input type="hidden" name="tempCareer" value=add.value>
+    input.setAttribute('type','hidden');
+    input.setAttribute('name','tempCareer');
     input.setAttribute('value',addstr.value);
 
     //<a id="delByn">삭제</a>
@@ -37,7 +36,7 @@ function addCreerList() {
     del.setAttribute('id','delBtn');
     del.addEventListener("click", delAct);
 
-    //<p>str<input type="hidden" name="studyCareer" value=add.value><a>삭제</a></p>
+    //<p>str<input type="hidden" name="tempCareer" value=add.value><a>삭제</a></p>
     const str = document.createTextNode(addstr.value);
     li.appendChild(str);
     li.append(" ");

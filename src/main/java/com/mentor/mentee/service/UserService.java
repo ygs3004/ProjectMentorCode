@@ -1,16 +1,15 @@
 package com.mentor.mentee.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.mentor.mentee.dao.UserDao;
-import com.mentor.mentee.domain.Study;
 import com.mentor.mentee.domain.User;
-import com.mentor.mentee.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -100,7 +99,13 @@ public class UserService {
 		}
 		return false;
 	}
-	
+	public List <User> getUserList(User userListBean){
+		List<User> result = new ArrayList<>();
+		result = userDao.list(userListBean);
+		
+		return result;
+		
+	}
 	/*
 	 * public PageInfo<User> getUserList(User user){
 	 * PageHelper.startPage(user.getPage(), user.getPageSize()); return

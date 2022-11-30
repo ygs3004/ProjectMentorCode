@@ -38,4 +38,4 @@ VALUES ( '2', '멘티', 'mentee', '1234', '1234', 'mentee@com', '010-2222-2222',
 COMMIT;
 
 
-UPDATE USERS SET STUDY_NUM=1 WHERE USER_ID='mentee';
+UPDATE USERS SET STUDY_NUM=240 WHERE USER_ID='mentee';

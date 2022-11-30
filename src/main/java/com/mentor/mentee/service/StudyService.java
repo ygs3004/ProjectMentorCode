@@ -8,6 +8,7 @@ import com.mentor.mentee.domain.User;
 import lombok.RequiredArgsConstructor;
 import com.mentor.mentee.mapper.StudyMapper;
 import com.mentor.mentee.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,28 +25,31 @@ public class StudyService {
     final UserMapper userMapper;
     final StudyMapper studyMapper;
 
-    // GET userInfo BY userId
+    // SELECT userInfo BY Id
     public User getUserByID(String userId){
         return userDAO.getUserInfo(userId);
     }
 
-    // GET roomInfo BY user_id
+    // SELECT studyInfo BY Id
     public Study getStudyById(String userId){
-    return studyMapper.getStudyById(userId);
+        Study study = studyMapper.getStudyById(userId);
+        getTemp(study);
+    return study;
     }
 
-    // GET roomInfo BY studyNum
+    // SELECT studyInfo BY studyNum
     public Study getStudyByNum(int num){
-        return studyMapper.getStudyByNum(num);
+        Study study = studyMapper.getStudyByNum(num);
+        getTemp(study);
+        return study;
     }
 
-    // Insert roomInfo
-    @Transactional
+    // INSERT studyInfo
     public void createStudy(Study study, String userId) {
         if(study.getStudyUserId()==null){
             study.setStudyUserId(userId);
         }
-        study.setStudyNum(0);
+//        study.setStudyNum(0);
         studyMapper.createStudy(study);
         int studyNum = getStudyNumByID(userId); //id로 만들어진 roomNum 조회
         usersAddStudyNum(studyNum, userId);
@@ -53,14 +57,15 @@ public class StudyService {
 
     // Delete roomInfo
     public void delStudy(String userId){
-        studyMapper.delStudy(userId);
+        studyMapper.delStudyInfo(userId);
         userMapper.updateStudyNum(0, userId);
         loginUserBean.setStudyNum(0);
     }
 
-    // Update roomInfo
+    // Update study
     public void updateStudy(Study study){
         study.setStudyUserId(loginUserBean.getUserId());
+        setTemp(study);
         studyMapper.updateStudy(study);
     }
 
@@ -76,7 +81,7 @@ public class StudyService {
         return studyNum;
     }
 
-    //CHECK RoomNum BY userId
+    //아이디로 스터디가 있으면 true
     public boolean getAssignedStudyNum(String userId){
         if(studyMapper.getStudyById(userId) == null){
             return false;
@@ -85,14 +90,33 @@ public class StudyService {
         }
     }
 
-//    public String getMentorIdByNum(int studyNum){
-//        return studyMapper.getMentorIdByNum(studyNum);
-//    }
-
     public PageInfo<Study> getStudyList(Study study){
         PageHelper.startPage(study.getPage(), study.getPageSize());
+        List<Study> studies = studyMapper.getStudyList();
+        for(Study s : studies){
+            getTemp(s);
+        }
+        return PageInfo.of(studies);
+    }
 
-        return PageInfo.of(studyMapper.getStudyList());
+    // insert나 update할때 temp -> set
+    public void setTemp(Study study){
+        study.setStudyWeekly(String.join(",", study.getTempWeekly()));
+        if(study.getTempCareer() ==null) {
+            return;
+        }else{
+            study.setStudyCareer(String.join(",", study.getTempCareer()));
+        }
+    }
+
+    // select study 할때 set -> temp
+    public void getTemp(Study study) {
+        study.setTempWeekly(study.getStudyWeekly().split(","));
+        if(study.getStudyCareer() == null){
+            return;
+        }else{
+            study.setTempCareer(study.getStudyCareer().split(","));
+        }
     }
 
 }

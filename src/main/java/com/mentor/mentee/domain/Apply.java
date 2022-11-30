@@ -1,9 +1,10 @@
 package com.mentor.mentee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class Apply {
 
     private String studyTitle;

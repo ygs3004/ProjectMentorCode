@@ -37,8 +37,8 @@
 					<div class="card shadow">
 						<div class="card-body"> -->
 	<div align="center">
-<%-- 	<form:form action='${root}user/user_list' method='get'
-								modelAttribute="userListBean"></form:form> --%>
+	<form:form action='${root}user/user_list' method='get'
+								modelAttribute="userListBean"></form:form>
 		<h3>[전체 회원 목록]</h3>
 		<table border="2" width="900px">
 			<tr>
@@ -53,30 +53,30 @@
 				<th>회원 학교</th>
 			</tr>
 			<tbody>
-					<c:forEach var='user' items="${userList }">
+					<c:forEach var='user' items="${result }">
 					</c:forEach>
 					</tbody>
 			<tr>
-			<td class="text-center d-none d-md-table-cell">${user.userIdx } 1</td>
-			<td class="text-center d-none d-md-table-cell">${user.StudyNum } 1 </td>
-			<td class="text-center d-none d-md-table-cell">${user.userRole } 1</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userName } name</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userId } ID</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userEmail } Email</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userPhone } Phone</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userGender } Gender</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userSchool } School</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userIdx }</td>
+			<td class="text-center d-none d-md-table-cell">${user.StudyNum }</td>
+			<td class="text-center d-none d-md-table-cell">${user.userRole }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userName }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userId }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userEmail }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userPhone }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userGender }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userSchool }</td>			
 			</tr>
 			<tr>
-			<td class="text-center d-none d-md-table-cell">${user.userIdx } 1</td>
-			<td class="text-center d-none d-md-table-cell">${user.StudyNum } 1 </td>
-			<td class="text-center d-none d-md-table-cell">${user.userRole } 1</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userName } name</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userId } ID</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userEmail } Email</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userPhone } Phone</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userGender } Gender</td>			
-			<td class="text-center d-none d-md-table-cell">${user.userSchool } School</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userIdx }</td>
+			<td class="text-center d-none d-md-table-cell">${user.StudyNum }</td>
+			<td class="text-center d-none d-md-table-cell">${user.userRole }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userName }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userId }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userEmail }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userPhone }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userGender }</td>			
+			<td class="text-center d-none d-md-table-cell">${user.userSchool }</td>			
 			</tr>
 		</table>
 	</div>

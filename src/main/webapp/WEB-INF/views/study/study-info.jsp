@@ -117,7 +117,7 @@
     </tbody>
 </table>
     <div class="centerBtn">
-    <c:if test="${sessionScope.loginUser.userRole == 1}">
+    <c:if test="${sessionScope.loginUser.userRole == 1 && sessionScope.loginUser.studyNum == study.studyNum}">
     <div style="text-align: center; margin-bottom: 1%;">
         <button type="button" class="btn btn-outline-success btn-sm"
                 onclick="location.href='/study/modify'">스터디 정보 수정하기</button>

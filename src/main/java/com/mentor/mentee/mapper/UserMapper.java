@@ -58,11 +58,11 @@ public interface UserMapper {
     @Delete("DELETE FROM USERS WHERE USER_ID = #{userId} ")
     int deleteUserInfo(User deleteUserBean);
     
-	/*
-	 * // select all list
-	 * 
-	 * @Select("SELECT USER_IDX, STUDY_NUM, USER_ROLE, USER_NAME, USER_ID, USER_EMAIL, USER_PHONE, USER_GENDER, USER_SCHOOL FROM USERS"
-	 * ) List<User> getUserList();
-	 */
+	
+	  // select all list
+	  
+	  @Select("SELECT USER_IDX, STUDY_NUM, USER_ROLE, USER_NAME, USER_ID, USER_EMAIL, USER_PHONE, USER_GENDER, USER_SCHOOL FROM USERS"
+	  ) List<User> getUserList(User userListBean);
+	 
 }
 

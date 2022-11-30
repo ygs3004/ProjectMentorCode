@@ -46,7 +46,7 @@
       </div>
       <!-- Footer About Text-->
       <div class="col-lg-4">
-        <br><h4 class="text-uppercase mb-4">Menor To Menee</h4>
+        <br><h4 class="text-uppercase mb-4">Mentor To Menee</h4>
       </div>
     </div>
   </div>

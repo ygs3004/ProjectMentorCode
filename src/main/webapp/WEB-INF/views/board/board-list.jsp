@@ -133,7 +133,7 @@
                                     let pageHtml = '<li class="page-item">';
 
                                     let nowFirstPage = res.pageNum-(res.pageNum%10)+1;
-                                    if(res.pageNum%0 == 0) nowFirstPage = res.pageNum-9;
+                                    if(res.pageNum%10 == 0) nowFirstPage = res.pageNum-9;
                                     let nowLastPage = nowFirstPage+9;
 
                                     if(nowLastPage > res.pages) nowLastPage=res.pages;

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.mentor.mentee.dao.UserDao;
 import com.mentor.mentee.domain.Study;
 import com.mentor.mentee.domain.User;
+import com.mentor.mentee.service.ApplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,20 +31,31 @@ public class StudyController {
     final HomeWorkService homeWorkService;
 
     @GetMapping("/study/info")
-    public String myStudy(Model model) {
-        // 접속한 회원의 멘토룸 정보
-        log.info("접속한 loginUserBean : " + loginUserBean);
+    public String myStudy(HttpServletRequest request, Model model, @RequestParam(value="studynum", required=false, defaultValue="0") int studynum) {
+         if(studynum == 0){
+            if(!StudyService.getAssignedStudyNum(loginUserBean.getUserId()) & loginUserBean.getUserRole()==1){
+                return "redirect:/study/create";
+            } else {
+                // 접속한 회원의 멘토룸 정보
+                log.info("접속한 loginUserBean : " + loginUserBean);
 
-        String userId = loginUserBean.getUserId();
-        int studyNum = loginUserBean.getStudyNum();
-        Study study = StudyService.getStudyByNum(studyNum);
+                String userId = loginUserBean.getUserId();
+                int studyNum = loginUserBean.getStudyNum();
+                Study study = StudyService.getStudyByNum(studyNum);
 
-        //접속한 회원의 과제 유무 체크
-        boolean checkHomeWork = homeWorkService.checkHomeWork(userId);
-
+                //접속한 회원의 과제 유무 체크
+                boolean checkHomeWork = homeWorkService.checkHomeWork(userId);
+                model.addAttribute("study", study);
+                model.addAttribute("checkHomeWork", checkHomeWork);
+                return "/study/study-info";
+            }
+        }else{
+        boolean checkHomeWork = homeWorkService.checkHomeWork(loginUserBean.getUserId());
+        Study study = StudyService.getStudyByNum(studynum);
         model.addAttribute("study", study);
         model.addAttribute("checkHomeWork", checkHomeWork);
         return "/study/study-info";
+        }
     }
 
 
@@ -67,8 +79,9 @@ public class StudyController {
     // 스터디개설 후 이동
     @PostMapping("/study/insert")
     public String insertStudy(Study study) {
+        StudyService.setTemp(study);
         StudyService.createStudy(study, loginUserBean.getUserId());
-        return "redirect:/study/study-info";
+        return "redirect:/study/info";
     }
 
 
@@ -106,16 +119,15 @@ public class StudyController {
         return StudyService.getStudyByNum(studynum);
     }
 
-    // 메세지보내기 페이지에 띄울 json
-    @GetMapping("/study/get/{studynum}")
-    public @ResponseBody Study getStudyByNum(@PathVariable int studynum) {
-        return StudyService.getStudyByNum(studynum);
-    }
 
     // 스터디리스트 json
     @GetMapping("/study/getstudylist")
     public @ResponseBody PageInfo<Study> getStudyList(Study study) {
+        log.info("study list 호출");
+        log.info(study.toString());
         return StudyService.getStudyList(study);
     }
+
+
 
 }

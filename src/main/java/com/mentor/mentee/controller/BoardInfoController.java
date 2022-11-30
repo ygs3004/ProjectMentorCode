@@ -1,5 +1,6 @@
 package com.mentor.mentee.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import com.mentor.mentee.domain.BoardInfo;
 import com.mentor.mentee.service.BoardInfoService;
 
 @Controller
+@Slf4j
 public class BoardInfoController {
 
 	@Autowired
@@ -37,6 +39,7 @@ public class BoardInfoController {
 	
 	@PutMapping("/boards")
 	public @ResponseBody int modifyBoard(@RequestBody BoardInfo boardInfo){
+		log.info("게시판 수정요청 : " + boardInfo);
 		return boardInfoService.updateBoard(boardInfo);
 	}
 	

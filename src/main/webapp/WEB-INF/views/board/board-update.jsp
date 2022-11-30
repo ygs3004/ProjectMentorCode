@@ -30,30 +30,30 @@
 							<thead>
 								<tr>
 									<th scope="col">번호</th>
-									<td><input type="text" name="boardNum" disabled></td>
+									<td><input type="text" data-col="boardNum" name="boardNum" disabled></td>
 								</tr>
 								<tr>
 									<th scope="col">제목</th>
-									<td><input type="text" name="boardTitle"></td>
+									<td><input type="text" name="boardTitle" data-col="boardTitle"></td>
 								</tr>
 								<tr>
 									<th scope="col">작성자</th>
-									<td>${loginUser.userName}</td>
-								</td>
+									<td data-col="crename" ></td>
+								</tr>
 								<tr>
 									<th scope="col">내용</th>
-									<td><textarea name="boardContent" style="width:75%; height:191px;"></textarea>
+									<td><textarea name="boardContent" data-col="boardContent" style="width:75%; height:191px;"></textarea>
 									</td>
 								</tr>
 								<tr>
 									<th colspan="2">
 										<div style="text-align: right; margin-bottom: 1%;">
 											<button type="button" class="btn btn-outline-success btn-sm"
-												onclick="location.href='/views/board/board-list'">수정</button>
+												onclick=modifyBoard()>수정</button>
 											&nbsp;
 											<button type="button" class="btn btn-outline-success btn-sm"
 												onclick="history.back(-1)">뒤로가기</button>
-												</div>
+										</div>
 									</th>
 								</tr>
 							</thead>
@@ -75,6 +75,30 @@
 					for(let i=0;i<keys.length;i++){
 						const key = keys[i];
 						$('[data-col="' + key + '"]').html(res[key]);
+						$('input[data-col="' + key + '"]').val(res[key]);
+					}
+				}
+			})
+		}
+
+		function modifyBoard(){
+			const data = {
+				boardNum : ${param.boardNum},
+				boardTitle : $('[data-col="boardTitle"]').val(),
+				boardContent :  $('[data-col="boardContent"]').val()
+			}
+
+			console.log(data);
+			$.ajax({
+				url : '/boards',
+				type:'put',
+				data : JSON.stringify(data),
+				contentType : "application/json;charset=utf-8",
+				success : function (res){
+					console.log(res);
+					if(res==1){
+						alert('정상적으로 수정 되었습니다.');
+						location.href='/views/board/board-list'
 					}
 				}
 			})

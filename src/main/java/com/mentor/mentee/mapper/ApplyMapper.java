@@ -12,10 +12,12 @@ public interface ApplyMapper {
     //Insert apply
     int insertApply(Apply apply);
 
-    List<Apply> getApplyList(String loginUserid);
+    List<Apply> getApplyList(String userId);
 
     int approveMentee(int applyNum);
 
     int refuseMentee(int applyNum);
+
+    int checkApplyMsg(int studyNum, String userId);
 }
 

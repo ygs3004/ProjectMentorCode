@@ -21,7 +21,7 @@ public interface HomeWorkMapper {
 
     public int checkHomeWork(String mentorId);
 
-    public List<HomeWork> getHomeWorkList(String userId);
+    public List<HomeWork> getHomeWorkList(int hwStudyNum);
 
     public int modifyHwInfo(HomeWorkInfo hwInfo);
 

@@ -12,13 +12,15 @@
 		cursor:pointer;
 	}
 </style>
-<script>
-  let weekarr = {
-    "1":"월", "2":"화", "3":"수", "4":"목", "5":"금", "6":"토", "7":"일"
-  }
 
+<script>
+	const weekarr = {
+    "1":"mon",
+	  "mon":"1",
+	  "2":"tue", "3":"wed", "4":"thur", "5":"fri", "6":"sat", "7":"sun"
+  }
   $(document).ready(function()  {
-    getlists()
+	  getlists()
   })
 
   function getlists(page) {
@@ -35,16 +37,10 @@
       data : data,
       accept: "application/json",
       success: function(res) {
-		  console.log(res);
+		console.log(res);
         let html ='';
         const studies = res.list;
         for(const study of studies){
-          console.log(study);
-          // if(study.studyWeekly){
-	      //     for(let weekly of studys.studyWeekly){
-	      //         weekly.replace(weekarr);
-	      //     }
-          // }
           html += '<div class="shadow rounded cardlist">' +
                 '<div class="card-body">' +
                 '<span id="studyTitle"> '+ study.studyTitle + '</span>' +
@@ -52,12 +48,22 @@
                 '</p> </div> <ul class="list-group list-group-flush">' +
                 '<li class="list-group-item">' +
                 '<li class="list-group-item" id="studyPeriod"> 기간 : ' + study.studyPeriod +'</li>' +
-                '<li class="list-group-item" id="studyWeekly">' + study.studyWeekly + '</li>' +
-                '<li class="list-group-item" id="studyCapacity">모집인원 : ' + study.studyNowCapacity +'/'+ study.studyCapacity + '</li></ul>'+
-                '<div class="card-body"> <a type="button" class="btn btn-primary" onclick="goStudyView(' + study.studyNum +')">상세보기</a> &nbsp;&nbsp;' +
-                '<a type="button" class="btn btn-primary" onclick="sendStudyMsg('+ study.studyNum +') ">신청하기</a> </div> </div>';
+				'<li class="list-group-item" id="studyWeekly">';
+			for(let w of study.tempWeekly){
+				html += '<img src="/resources/img/weekly/'+weekarr[w]+'.png" style="weight=20px; height: 20px;"/> &nbsp;' ;
+			}
+                html += '</li>' +
+						'<li class="list-group-item" id="studyCapacity">모집인원 : ' + study.studyNowCapacity +'/'+ study.studyCapacity + '</li></ul>'+
+						'<div class="card-body"> <a type="button" class="btn btn-primary" onclick="goStudyView(' + study.studyNum +')">상세보기</a> &nbsp;&nbsp;';
+			if(${sessionScope.loginUser.userRole == 2}){
+				html += '<a type="button" class="btn btn-primary" onclick="sendStudyMsg('+ study.studyNum +') ">신청하기</a> </div></div>';
+			}else{
+				html +='</div></div>';
+			}
+
         }
         $('#formBody').html(html);
+		$('#studycnt').html(res.total);
 		  let pageHtml = '<li class="page-item">';
 
 		  let nowFirstPage = res.pageNum-(res.pageNum%10)+1;
@@ -104,7 +110,7 @@
   };
 
   function goStudyView(studynum){
-    location.href = '/views/study/info?studynum=' + studynum;
+    location.href = '/study/info?studynum='+studynum;
   }
 
   function sendStudyMsg(studynum){
@@ -112,12 +118,11 @@
   }
 
 </script>
+<section class="formHeader">
+	<span id="formTitle"><b>스터디 목록</b></span>
+	<p id="formDes">현재 생성된 스터디는 <span id="studycnt"></span>개 입니다.</p>
+</section>
 <div id="formBody"></div>
-
-<div id="">
-
-
-</div>
 <%--하단 페이징--%>
 <div id="pagenav">
 	<nav aria-label="Page navigation example">

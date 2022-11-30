@@ -5,9 +5,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/resources/js/study/study-create-scripts.js?ver=1"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" type="text/css" href="/resources/css/study/study-styles.css">
-<script type="text/javascript" src="/resources/js/study/study-create-scripts.js"></script>
 <form action="/study/insert" class="shadow p-3 mb-5 bg-white rounded formBody" method="POST" name="createForm" id="createForm" onsubmit="return doCheck()">
     <section class="formHeader">
             <span id="formTitle"><b>스터디 개설</b></span>
@@ -27,31 +27,31 @@
             <div class="notMove">
          <div style="display: flex;justify-content: space-between;">
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="mon" value="1">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="mon" value="1">
                 <label class="btn btn-outline-primary studyWeekly" for="mon">월</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="tue" value="2">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="tue" value="2">
                 <label class="btn btn-outline-primary studyWeekly" for="tue">화</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="wed" value="3">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="wed" value="3">
                 <label class="btn btn-outline-primary studyWeekly" for="wed">수</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="thur" value="4">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="thur" value="4">
                 <label class="btn btn-outline-primary studyWeekly" for="thur">목</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="fri" value="5">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="fri" value="5">
                 <label class="btn btn-outline-primary studyWeekly" for="fri">금</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="sat" value="6">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="sat" value="6">
                 <label class="btn btn-outline-primary studyWeekly" for="sat">토</label>
              </div>
              <div>
-                <input type="checkbox" class="btn-check" name="studyWeekly" id="sun" value="7">
+                <input type="checkbox" class="btn-check" name="tempWeekly" id="sun" value="7">
                 <label class="btn btn-outline-primary studyWeekly" for="sun">일</label>
              </div>
          </div>

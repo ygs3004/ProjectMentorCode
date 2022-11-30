@@ -21,7 +21,7 @@ public interface StudyMapper {
     Study getStudyById(String userId);
 
     // Delete Room BY user_id
-    int delStudy(String userId);
+    int delStudyInfo(String userId);
 
     // select all list
     List<Study> getStudyList();

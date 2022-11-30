@@ -54,7 +54,7 @@
 			<tr>
 				<th colspan="2">
 				<div style="text-align: right; margin-bottom: 1%;">
-					<button class="btn btn-outline-success btn-sm" onclick="location.href='/views/board/board-reply'">답글달기</button>
+					<button class="btn btn-outline-success btn-sm" onclick="location.href='/views/board/board-reply?boardNum='+'${param.boardNum}' ">답글달기</button>
 					&nbsp;
 					<button class="btn btn-outline-success btn-sm" onclick="location.href='/views/board/board-update?boardNum='+'${param.boardNum}' ">수정</button>
 					&nbsp;

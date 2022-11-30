@@ -1,4 +1,11 @@
-let weekarr = { "1":"mon", "2":"tue", "3":"wed", "4":"thur", "5":"fri", "6":"sat", "7":"sun" }
+const weekarr = {
+    "1":"mon",
+    "2":"tue",
+    "3":"wed",
+    "4":"thur",
+    "5":"fri",
+    "6":"sat",
+    "7":"sun" }
 
 let minPeriod ="";
 let beforePeriod ="";
@@ -12,17 +19,15 @@ window.onload =(function() {
         dataType: "json",
         accept: "application/json",
         success: function(studyInfo) {
-            console.log(studyInfo);
             //json -> stringify(String으로 만들기) -> parse(obj로 만들기)
             minPeriod = strTodate((studyInfo.studyPeriod).slice(0,10).replace("/","").replace("/",""));
             endPeriod = strTodate((studyInfo.studyPeriod).slice(13,23).replace("/","").replace("/",""));
             beforePeriod = studyInfo.studyPeriod;
 
             //일주일 리스트 불러와서 체크
-            for(let a of studyInfo.weeklyList){
-                document.getElementById(weekarr[a]).checked=true;
+            for(let week of studyInfo.tempWeekly){
+                document.getElementById(weekarr[week]).checked=true;
                 }
-
             },
         error: function(errorThrown) {
             alert(errorThrown.statusText);
@@ -68,7 +73,7 @@ function addCreerList() {
 
     //<input type="hidden" name="carrer" value=add.value>
     input.setAttribute('type',"hidden");
-    input.setAttribute('name','studyCareer');
+    input.setAttribute('name','tempCareer');
     input.setAttribute('value',addstr.value);
 
     //<a id="delByn">삭제</a>
@@ -94,7 +99,7 @@ function delAct(e) {
 
 //입력값이 잘못된 경우 false를 리턴.
 function doCheck(){
-    let enWeekly = document.querySelectorAll("input[type=checkbox][name=studyWeekly]:checked"); //체크된 요일리스트 불러오기
+    let enWeekly = document.querySelectorAll("input[type=checkbox][name=tempWeekly]:checked"); //체크된 요일리스트 불러오기
     if(document.getElementById("title").value.trim().length == 0){
         alert('스터디 이름을 입력해주세요.')
         document.getElementById("title").focus();
