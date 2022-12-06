@@ -11,7 +11,19 @@
     </insert>
 
     <select id="getApplyList" resultType="com.mentor.mentee.domain.Apply">
-        SELECT B.STUDY_TITLE, A.APPLY_NUM, A.APPLY_MENTORID, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_NUM = 0 ORDER BY A.APPLY_MENTEEID
+        SELECT B.STUDY_TITLE, A.APPLY_NUM, A.APPLY_MENTORID, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_AOR = 0 ORDER BY A.APPLY_NUM ASC
+    </select>
+
+    <select id="getApproveList" resultType="com.mentor.mentee.domain.Apply">
+        SELECT A.APPLY_NUM, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_AOR = 1 ORDER BY A.APPLY_MENTEEID DESC
+    </select>
+
+    <select id="getRefuseList" resultType="com.mentor.mentee.domain.Apply">
+        SELECT A.APPLY_NUM, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTORID = #{userId} AND A.APPLY_AOR = 2 ORDER BY A.APPLY_MENTEEID DESC
+    </select>
+
+    <select id="getApproveTotal" resultType="int">
+        SELECT COUNT(APPLY_NUM) FROM APPLY WHERE APPLY_MENTORID = #{userId} AND APPLY_AOR = 1
     </select>
 
     <select id="checkApplyMsg" resultType="com.mentor.mentee.domain.Apply">
@@ -19,11 +31,27 @@
     </select>
 
     <update id="approveMentee">
-        UPDATE APPLY SET APPLY_AOR = 1 WHERE APPLY_NUM =  ${applyNum}
+        UPDATE APPLY SET APPLY_AOR = 1 WHERE APPLY_NUM = ${applyNum}
     </update>
 
     <update id="refuseMentee">
-        UPDATE APPLY SET APPLY_AOR = 2 WHERE APPLY_NUM =  ${applyNum}
+        UPDATE APPLY SET APPLY_AOR = 2 WHERE APPLY_NUM = ${applyNum}
     </update>
+
+    <select id="getMsgList" resultType="com.mentor.mentee.domain.Apply">
+        SELECT B.STUDY_TITLE, A.APPLY_NUM, A.APPLY_MENTORID, A.APPLY_MENTEEID, A.APPLY_AOR, A.APPLY_MSG  FROM APPLY A INNER JOIN STUDY B ON A.APPLY_MENTORID = B.STUDY_USER_ID WHERE A.APPLY_MENTEEID = #{userId} AND A.APPLY_AOR = 0 ORDER BY A.APPLY_NUM ASC
+    </select>
+
+    <update id="modifyMsg">
+        UPDATE APPLY SET APPLY_MSG = #{applyMsg} WHERE APPLY_NUM = #{applyNum}
+    </update>
+
+    <delete id="deleteMsg">
+        DELETE FROM APPLY WHERE APPLY_NUM = #{applyNum}
+    </delete>
+
+    <delete id="deleteMsgById">
+        DELETE FROM APPLY WHERE APPLY_MENTORID = #{userId}
+    </delete>
 
 </mapper>

@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>과제 정보</title>
-    <script type="text/javascript" src="/resources/js/homeworkScript.js"></script>
+    <script type="text/javascript" src="/resources/js/homeworkScript.js?after"></script>
 </head>
 <style>
 
@@ -174,20 +174,29 @@
             modifyAndDeleteButton.html(divideButton);
         })
 
-        $(document).on("click", "button[data-oper='modify']", () =>{
+        $(document).on("click", "button[data-oper='modify']", (e) =>{
             console.log("수정 완료 요청")
-            if(!checkSubmit()) return;
+            e.preventDefault();
+            if(!checkSubmit()) {
+                console.log("return 됩니다.")
+                return;
+            }
 
             const hwInfo = {hwInfoName: $("input[id='hwInfoName']").val(),
                 hwInfoDeadline: $("input[id='hwInfoDeadline']").val(),
-                hwInfoContent: $("textarea[id='hwInfoContent']").val()}
+                hwInfoContent: $("textarea[id='hwInfoContent']").val()
+            }
 
             console.log("요청된 정보 : ", hwInfo)
 
             hwInfoModifyAjax(hwInfo, hwInfoMentor, () => {
                 alert("수정되었습니다")
                 location.reload();
-            })
+            },
+                () => {
+                    alert("수정에 실패했습니다.")
+                }
+            )
         })
 
         $(document).on("click", "button[data-oper='delete']", () =>{

@@ -17,7 +17,9 @@
 	}
 	.imgdiv img {display: block; margin:auto;width:100%;
 		height:100%;
-		object-fit:cover;}
+		object-fit:cover;
+	}
+
 </style>
 <div id="carouselExampleDark" class="carousel carousel-dark slide imgdiv" data-bs-ride="carousel" style="height: 700px">
 	<div class="carousel-indicators">

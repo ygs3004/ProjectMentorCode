@@ -14,6 +14,8 @@ public interface StudyMapper {
     // Update study
     int updateStudy(Study study);
 
+    int resetStudyNum(int studyNum);
+
     // Select studyINFO BY num
     Study getStudyByNum(int studyNum);
 
@@ -25,6 +27,9 @@ public interface StudyMapper {
 
     // select all list
     List<Study> getStudyList();
+
+    //update nowcapacist +=1
+    int updateCapacity(int num, int studyNum);
 
     String getMentorIdByNum(int studyNum);
 }

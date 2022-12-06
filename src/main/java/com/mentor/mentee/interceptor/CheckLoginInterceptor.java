@@ -28,8 +28,6 @@ public class CheckLoginInterceptor implements HandlerInterceptor {
 			@Nullable ModelAndView modelAndView) throws Exception {
 		if (loginUserBean.isUserLogin()) {
 			request.getSession().setAttribute("loginUser", loginUserBean);
-			boolean checkHomeWork = homeWorkService.checkHomeWork(loginUserBean.getUserId());
-			request.getSession().setAttribute("checkHomeWork", checkHomeWork);
 		}
 
 	}

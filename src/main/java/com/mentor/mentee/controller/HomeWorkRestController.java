@@ -76,7 +76,7 @@ public class HomeWorkRestController {
 
     @DeleteMapping("/{hwInfoMentor}")
     @ResponseBody
-    public ResponseEntity<String> modifyHwInfo(@PathVariable String hwInfoMentor){
+    public ResponseEntity<String> deleteHwInfo(@PathVariable String hwInfoMentor){
 
         int deleteCount = homeWorkService.deleteHwInfo(hwInfoMentor);
 

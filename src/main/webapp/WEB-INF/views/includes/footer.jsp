@@ -21,8 +21,8 @@
   }
 </style>
 <!-- Footer-->
-<footer class="footer text-center">
-  <div class="container">
+<footer class="footer">
+  <div class="container text-center">
     <div class="row">
       <!-- Footer Location-->
       <div class="col-lg-4 mb-5 mb-lg-0">

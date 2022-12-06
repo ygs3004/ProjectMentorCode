@@ -41,11 +41,11 @@ const checkSubmit = () => {
     return true;
 }
 
-const hwInfoModifyAjax = (hwInfo, studyNum, callback, error) => (
+const hwInfoModifyAjax = (hwInfo, hwInfoMentor, callback, error) => (
 
     $.ajax({
-        type :'post',
-        url :'/homework/' + studyNum,
+        type :'PATCH',
+        url :'/homework/' + hwInfoMentor,
         data : JSON.stringify(hwInfo),
 
         contentType : "application/json;charset=utf-8",

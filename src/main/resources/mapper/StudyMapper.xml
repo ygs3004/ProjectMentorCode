@@ -26,8 +26,7 @@
     </update>
 
     <update id="updateCapacity">
-        UPDATE STUDY
-        SET STUDY_NOW_CAPACITY +=
+        UPDATE STUDY SET STUDY_NOW_CAPACITY = ${num} WHERE STUDY_NUM = ${studyNum}
     </update>
 
     <delete id="delStudyInfo">

@@ -7,6 +7,8 @@ import lombok.*;
 @ToString
 public class Apply {
 
+    private Integer page;
+    private Integer pageSize;
     private String studyTitle;
 
     private Integer applyNum;

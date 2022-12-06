@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.mentor.mentee.dao.UserDao;
 import com.mentor.mentee.domain.Study;
 import com.mentor.mentee.domain.User;
-import com.mentor.mentee.service.ApplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,7 @@ public class StudyController {
 
     @Resource(name = "loginUserBean")
     private User loginUserBean;
+
     final UserDao userDao;
     final StudyService StudyService;
     final HomeWorkService homeWorkService;
@@ -37,7 +37,7 @@ public class StudyController {
                 return "redirect:/study/create";
             } else {
                 // 접속한 회원의 멘토룸 정보
-                log.info("접속한 loginUserBean : " + loginUserBean);
+//                log.info("접속한 loginUserBean : " + loginUserBean);
 
                 String userId = loginUserBean.getUserId();
                 int studyNum = loginUserBean.getStudyNum();
@@ -93,7 +93,7 @@ public class StudyController {
     }
 
 
-    // study 수정
+    // 스터디 수정
     @PostMapping("/study/update")
     public String updateStudy(Study study) {
         StudyService.updateStudy(study);
@@ -107,11 +107,6 @@ public class StudyController {
         return "redirect:/";
     }
 
-    @GetMapping("/study/list")
-    public String goStudyList() {
-        return "/study/study-list";
-    }
-
     // json으로 info보내기
     @GetMapping("/study/getstudy")
     public @ResponseBody Study getStudy() {
@@ -123,8 +118,6 @@ public class StudyController {
     // 스터디리스트 json
     @GetMapping("/study/getstudylist")
     public @ResponseBody PageInfo<Study> getStudyList(Study study) {
-        log.info("study list 호출");
-        log.info(study.toString());
         return StudyService.getStudyList(study);
     }
 

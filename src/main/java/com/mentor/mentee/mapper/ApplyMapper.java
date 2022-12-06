@@ -16,8 +16,23 @@ public interface ApplyMapper {
 
     int approveMentee(int applyNum);
 
+    List<Apply> getApproveList(String userId);
+
+    List<Apply> getRefuseList(String userId);
+
+
     int refuseMentee(int applyNum);
 
     int checkApplyMsg(int studyNum, String userId);
+
+    int getApproveTotal(String userId);
+
+    List<Apply> getMsgList(String userId);
+
+    int modifyMsg(String applyMsg, int applyNum);
+
+    int deleteMsg(int applyNum);
+
+    int deleteMsgById(String userId);
 }
 

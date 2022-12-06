@@ -21,8 +21,11 @@ public class AlwayslCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
+        boolean checkHomeWork = false;
+
         if (loginUserBean.isUserLogin()) {
-            boolean checkHomeWork = homeWorkService.checkHomeWork(loginUserBean.getUserId());
+            if(loginUserBean.getStudyNum()>=1) checkHomeWork = homeWorkService.checkHomeWork(loginUserBean.getUserId());
+
             request.getSession().setAttribute("checkHomeWork", checkHomeWork);
         }
 

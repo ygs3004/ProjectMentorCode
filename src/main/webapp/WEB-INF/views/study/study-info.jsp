@@ -88,11 +88,11 @@
                                     onclick="location.href='/homework/info-mentor'" >과제 정보</button><br><br>
                         </c:when>
                         <%-- 과제가 없을때--%>
-                        <c:otherwise>
+                        <c:when test="${sessionScope.loginUser.studyNum == study.studyNum}">
                             <c:out value="현재 진행중인 과제가 없습니다"/>
                             <button type="button" class="btn btn-outline-success btn-sm"
                                     onclick="location.href='/homework/upload'">과제 생성</button><br><br>
-                        </c:otherwise>
+                        </c:when>
                     </c:choose>
                 </c:when>
 

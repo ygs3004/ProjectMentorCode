@@ -46,6 +46,10 @@ public interface UserMapper {
     @Select("select sysdate from dual")
     public String getTime();
 
+    // 스터디 삭제 후 리셋
+    @Update("UPDATE USERS SET STUDY_NUM = 0 WHERE STUDY_NUM = #{studyNum}")
+    public int resetStudyNum(@Param("studyNum") int studyNum);
+
     // mentorRoom 생성 후 users에 mentorRoomNo update
     @Update("UPDATE USERS SET STUDY_NUM = #{studyNum} WHERE USER_ID = #{userId}")
     public int updateStudyNum(@Param("studyNum") int studyNum, @Param("userId") String userId);

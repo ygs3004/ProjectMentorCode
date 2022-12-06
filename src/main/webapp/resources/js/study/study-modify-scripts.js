@@ -140,7 +140,7 @@ function doCheck(){
     }
 
     else if(document.getElementById("capacity").value < document.getElementById("nowCapacity").value){
-        alert('현재 모집된 인원이 수정할 모집인원보다 많습니다.\r 수정할 모집인원은 모집된 인원보다 많아야합니다.');
+        alert('현재 모집된 인원이 수정할 모집인원보다 많습니다.\r\n 수정할 모집인원은 모집된 인원보다 많아야합니다.');
         document.getElementById("capacity").focus();
         return false;
     }

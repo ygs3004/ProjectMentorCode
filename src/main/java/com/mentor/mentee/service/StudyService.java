@@ -5,6 +5,7 @@ import com.mentor.mentee.dao.UserDao;
 import com.mentor.mentee.domain.BoardInfo;
 import com.mentor.mentee.domain.Study;
 import com.mentor.mentee.domain.User;
+import com.mentor.mentee.mapper.ApplyMapper;
 import lombok.RequiredArgsConstructor;
 import com.mentor.mentee.mapper.StudyMapper;
 import com.mentor.mentee.mapper.UserMapper;
@@ -24,6 +25,7 @@ public class StudyService {
     final UserDao userDAO;
     final UserMapper userMapper;
     final StudyMapper studyMapper;
+    final ApplyMapper applyMapper;
 
     // SELECT userInfo BY Id
     public User getUserByID(String userId){
@@ -57,9 +59,12 @@ public class StudyService {
 
     // Delete roomInfo
     public void delStudy(String userId){
+        int studyNum = studyMapper.getStudyById(userId).getStudyNum();
+        userMapper.resetStudyNum(studyNum);
         studyMapper.delStudyInfo(userId);
-        userMapper.updateStudyNum(0, userId);
+        applyMapper.deleteMsgById(userId);
         loginUserBean.setStudyNum(0);
+//      userMapper.updateStudyNum(0, userId);
     }
 
     // Update study
@@ -81,6 +86,11 @@ public class StudyService {
         return studyNum;
     }
 
+    //update nowcapacity +=1
+    public int updateCapacity(int num, String userId){
+        return studyMapper.updateCapacity(num, getStudyNumByID(userId));
+    }
+
     //아이디로 스터디가 있으면 true
     public boolean getAssignedStudyNum(String userId){
         if(studyMapper.getStudyById(userId) == null){
@@ -90,6 +100,7 @@ public class StudyService {
         }
     }
 
+    //스터디룸 페이징 및 리스트 정보 보내기
     public PageInfo<Study> getStudyList(Study study){
         PageHelper.startPage(study.getPage(), study.getPageSize());
         List<Study> studies = studyMapper.getStudyList();

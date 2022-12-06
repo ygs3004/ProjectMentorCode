@@ -20,7 +20,7 @@
                 if(res){
                     $('#studyTitle').val(res.studyTitle);
                     $('#mentorInfo').val(res.studyUserId);
-                    alert("이미 전송된 요청메세지가 존재합니다.");
+                    alert("이미 전송된 요청메세지 혹은 가입된 스터디가 존재합니다.");
                     history.back();
                 }else{
                     $('#studyTitle').val(res.studyTitle);

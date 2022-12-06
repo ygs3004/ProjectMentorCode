@@ -17,7 +17,8 @@
     }
     #emptydiv {height: 109px;}
 
-    @media (min-width: 576px) {  #emptydiv {height: 90px;}
+    @media (max-width: 576px) {
+        #emptydiv {height: 75px;}
     }
 
 </style>
@@ -93,6 +94,9 @@
                             </c:if>
                         </c:if>
                     </c:if>
+                        <c:if test="${sessionScope.loginUser.userRole == 2}">
+                            <a class="dropdown-item" href="${root}views/study/study-msglist">보낸메세지</a>
+                        </c:if>
                     </ul>
                         </c:otherwise>
                         </c:choose>
@@ -136,7 +140,7 @@
 <!-- Masthead-->
 
 <header>
-    <div style="padding-top: 109px;"></div>
+    <div id="emptydiv"></div>
 </header>
 
 <%--<header class="masthead bg-primary text-white text-center" id="green">--%>
